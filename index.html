@@ -903,24 +903,24 @@ button{font-family:inherit;cursor:pointer;}
 const COLLAB = {nombre:'Ana Martínez',puesto:'Ventas Mostrador',tienda:'Santa Clara',negocio:'Metales Díaz',dia:18};
 
 const SVS = {
-  d7: {day:'ETAPA 1', title:'Evalúa tu primera semana',           desc:'Comparte tu experiencia de llegada. Tu opinión mejora el proceso para todos.',     stamp:{id:'s1',icon:'✈️',name:'PRIMER VUELO',title:'Has completado\nla etapa de Llegada.'}},
-  d30:{day:'ETAPA 2', title:'Evalúa tu integración al equipo',    desc:'Tu opinión sobre este primer mes nos ayuda a acompañarte mejor.',                   stamp:{id:'s2',icon:'🗺️',name:'EXPLORADOR',  title:'Has completado\nla etapa de Inmersión.'}},
-  d60:{day:'ETAPA 3', title:'Evalúa tu autonomía actual',         desc:'Comparte cómo ha evolucionado tu integración. Tu avance fortalece tu impacto.',     stamp:{id:'s3',icon:'🌟',name:'LOCAL',       title:'Has completado\nla etapa de Autonomía.'}},
-  d90:{day:'ETAPA 4', title:'Evalúa tu proceso de integración',   desc:'Evalúa tu experiencia completa. Tu retroalimentación cierra el proceso formalmente.',stamp:{id:'s4',icon:'🏛️',name:'CIUDADANO',  title:'Tu proceso está\ncompleto.'}},
+  d7: {day:'ETAPA 1', title:'Evalúa tu primera semana',           desc:'Comparte tu experiencia de llegada. Tu opinión mejora el proceso para todos.',      stamp:{id:'s1',icon:'✈️',name:'LLEGADA',   title:'Has completado\nla etapa de Llegada.'}},
+  d30:{day:'ETAPA 2', title:'Evalúa tu integración al equipo',    desc:'Tu opinión sobre este primer mes nos ayuda a acompañarte mejor.',                    stamp:{id:'s2',icon:'🗺️',name:'DOMINANDO', title:'Has completado\nla etapa Dominando el mapa.'}},
+  d60:{day:'ETAPA 3', title:'Evalúa tu autonomía actual',         desc:'Comparte cómo ha evolucionado tu integración. Tu avance fortalece tu impacto.',      stamp:{id:'s3',icon:'🌟',name:'EN RUTA',   title:'Has completado\nla etapa En ruta.'}},
+  d90:{day:'ETAPA 4', title:'Evalúa tu proceso de integración',   desc:'Evalúa tu experiencia completa. Tu retroalimentación cierra el proceso formalmente.',stamp:{id:'s4',icon:'🏛️',name:'INTEGRADO', title:'Tu proceso está\ncompleto.'}},
 };
 
 const STAMPS=[
-  {id:'s1',icon:'✈️',name:'PRIMER VUELO',bg:'rgba(59,130,246,.22)'},
-  {id:'s2',icon:'🗺️',name:'EXPLORADOR',  bg:'rgba(249,115,22,.22)'},
-  {id:'s3',icon:'🌟',name:'LOCAL',        bg:'rgba(16,185,129,.22)'},
-  {id:'s4',icon:'🏛️',name:'CIUDADANO',   bg:'rgba(168,85,247,.22)'},
+  {id:'s1',icon:'✈️',name:'LLEGADA',    bg:'rgba(59,130,246,.22)'},
+  {id:'s2',icon:'🗺️',name:'DOMINANDO',  bg:'rgba(249,115,22,.22)'},
+  {id:'s3',icon:'🌟',name:'EN RUTA',    bg:'rgba(16,185,129,.22)'},
+  {id:'s4',icon:'🏛️',name:'INTEGRADO',  bg:'rgba(168,85,247,.22)'},
 ];
 
 const PHS=[
-  {icon:'✈️',color:'#3B82F6',dim:'rgba(59,130,246,.14)',days:'DÍAS 1–7',  name:'Llegada',                        slogan:'Conozco la tienda y al equipo',                  sub:'Inicio del proceso',          quote:'Tu primer punto de partida. La primera semana define las bases de tu integración.',    sv:'d7', stamp:'✈️ Sello Llegada',   done:true, active:false},
-  {icon:'🗺️',color:'#F97316',dim:'rgba(249,115,22,.14)', days:'DÍAS 8–30', name:'Dominando el mapa',              slogan:'Entiendo qué tengo que hacer',                   sub:'Integración al equipo',       quote:'Conoces el entorno y tu rol. Es el momento de conectar con tu equipo y tus clientes.', sv:'d30',stamp:'🗺️ Sello Inmersión', done:false,active:true},
-  {icon:'🌟',color:'#10B981',dim:'rgba(16,185,129,.14)', days:'DÍAS 31–60',name:'En ruta',                         slogan:'Realizo mi trabajo con apoyo de mi líder',       sub:'Consolidación del rol',       quote:'Tu desempeño toma forma. Tomas decisiones con mayor claridad y confianza.',            sv:'d60',stamp:'🌟 Sello Autonomía',  done:false,active:false},
-  {icon:'🏛️',color:'#A855F7',dim:'rgba(168,85,247,.14)', days:'DÍAS 61–90',name:'Destino: integrado al equipo',   slogan:'Trabajo con seguridad y autonomía',              sub:'Cierre del proceso',          quote:'Completas tu integración formal. La evaluación final activa tu Pasaporte Cuprum.',      sv:'d90',stamp:'🏛️ Sello Pertenencia',done:false,active:false},
+  {icon:'✈️',color:'#3B82F6',dim:'rgba(59,130,246,.14)',days:'DÍAS 1–7',  name:'Llegada',                        slogan:'Conozco la tienda y al equipo',             sub:'Inicio del proceso',          quote:'Tu primer punto de partida. La primera semana define las bases de tu integración.',    sv:'d7', stamp:'✈️ Llegada',   done:true, active:false},
+  {icon:'🗺️',color:'#F97316',dim:'rgba(249,115,22,.14)', days:'DÍAS 8–30', name:'Dominando el mapa',              slogan:'Entiendo qué tengo que hacer',              sub:'Integración al equipo',       quote:'Conoces el entorno y tu rol. Es el momento de conectar con tu equipo y tus clientes.', sv:'d30',stamp:'🗺️ Dominando', done:false,active:true},
+  {icon:'🌟',color:'#10B981',dim:'rgba(16,185,129,.14)', days:'DÍAS 31–60',name:'En ruta',                         slogan:'Realizo mi trabajo con apoyo de mi líder',  sub:'Consolidación del rol',       quote:'Tu desempeño toma forma. Tomas decisiones con mayor claridad y confianza.',            sv:'d60',stamp:'🌟 En ruta',   done:false,active:false},
+  {icon:'🏛️',color:'#A855F7',dim:'rgba(168,85,247,.14)', days:'DÍAS 61–90',name:'Destino: integrado al equipo',   slogan:'Trabajo con seguridad y autonomía',         sub:'Cierre del proceso',          quote:'Completas tu integración formal. La evaluación final activa tu Pasaporte Cuprum.',      sv:'d90',stamp:'🏛️ Integrado', done:false,active:false},
 ];
 
 let obSlide=0, activeSv=null, earned=new Set(['s1']);
@@ -991,15 +991,14 @@ function renderTL(){
         <div class="ph-sv">
           <div><div class="psv-ey">📋 EVALUACIÓN ${sv.day}</div><div class="psv-ti">${sv.title}</div><div class="psv-hi">Completa la etapa y obtén: ${ph.stamp}</div></div>
           ${isE?`<span class="pill p-ok" style="flex-shrink:0">✓ COMPLETADA</span>`
-            :(ph.done||ph.active)?`<button class="btn btn-ghost btn-sm" style="flex-shrink:0" onclick="openSurvey('${ph.sv}')">EVALUAR →</button>`
-            :`<span class="pill p-muted" style="flex-shrink:0">PRÓXIMA ETAPA</span>`}
+            :`<button class="btn btn-ghost btn-sm" style="flex-shrink:0" onclick="openSurvey('${ph.sv}')">EVALUAR →</button>`}
         </div>
       </div>`;
     c.appendChild(d);
   });
 }
 
-function togPh(el){const b=el.parentElement;if(b.classList.contains('ph-lock'))return;b.classList.toggle('open');}
+function togPh(el){const b=el.parentElement;b.classList.toggle('open');}
 
 function showPg(pg,btn){
   ['pasaporte','viaje','cuprum','beneficios','equipo'].forEach(p=>{
