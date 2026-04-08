@@ -824,8 +824,8 @@ button{font-family:inherit;cursor:pointer;}
         <div class="lc-in">
           <div class="lc-av">👤</div>
           <div class="lc-lb">TU LÍDER EN ESTA ETAPA</div>
-          <div class="lc-nm">Carlos Mendoza</div>
-          <div class="lc-rl">Gerente de Tienda · Santa Clara · Metales Díaz</div>
+          <div class="lc-nm" id="lc-nm">Carlos Mendoza</div>
+          <div class="lc-rl" id="lc-rl">Gerente de Tienda · Santa Clara · Metales Díaz</div>
           <div class="lc-bts">
             <button class="btn btn-ghost btn-full btn-sm">📱 Enviar mensaje</button>
             <button class="btn btn-dk btn-full btn-sm">📞 Llamar</button>
@@ -900,7 +900,16 @@ button{font-family:inherit;cursor:pointer;}
 </div>
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-const COLLAB = {nombre:'Ana Martínez',puesto:'Ventas Mostrador',tienda:'Santa Clara',negocio:'Metales Díaz',dia:18};
+// Lee parámetros del QR automáticamente
+const _p = new URLSearchParams(window.location.search);
+const COLLAB = {
+  nombre:  _p.get('nombre')  || 'Colaborador Cuprum',
+  puesto:  _p.get('puesto')  || 'Red Comercial',
+  tienda:  _p.get('tienda')  || '',
+  negocio: _p.get('negocio') || 'Red Comercial',
+  lider:   _p.get('lider')   || '',
+  dia:     parseInt(_p.get('dia')) || 1
+};
 
 const SVS = {
   d7: {day:'ETAPA 1', title:'Evalúa tu primera semana',           desc:'Comparte tu experiencia de llegada. Tu opinión mejora el proceso para todos.',      stamp:{id:'s1',icon:'✈️',name:'LLEGADA',   title:'Has completado\nla etapa de Llegada.'}},
@@ -946,6 +955,10 @@ function init(){
   document.getElementById('tnav-dy').textContent=`Día ${COLLAB.dia}`;
   document.getElementById('h-nm').textContent=COLLAB.nombre;
   document.getElementById('h-rl').textContent=`${COLLAB.puesto} · ${COLLAB.tienda} · ${COLLAB.negocio}`;
+  if(COLLAB.lider){
+    document.getElementById('lc-nm').textContent=COLLAB.lider;
+    document.getElementById('lc-rl').textContent=`${COLLAB.tienda} · ${COLLAB.negocio}`;
+  }
   const ph=PHS.find(p=>p.active)||PHS[0];
   document.getElementById('h-dest-ic').textContent=ph.icon;
   document.getElementById('h-dest-nm').textContent=`${ph.name} — ${ph.sub}`;
