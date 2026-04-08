@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pasaporte Cuprum — Red Comercial</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;0,900;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --dk:#080F1E; --dk1:#0D1740; --dk2:#132050; --dk3:#1A2A60;
+  --dborder:rgba(255,255,255,.08); --dborder2:rgba(255,255,255,.14);
+  --lbg:#F2F0EC; --lsurf:#FFFFFF; --lsurf2:#F8F7F4;
+  --lborder:#E4E0D8; --lborder2:#CCCAC4;
+  --link:#111827; --link2:#374151; --lmuted:#6B7280; --lmuted2:#9CA3AF;
+  --amber:#F5A623; --amber2:#FFBE55;
+  --amber-d:rgba(245,166,35,.13); --amber-g:rgba(245,166,35,.07); --amber-b:rgba(245,166,35,.25);
+  --blue:#4158D0; --blue2:#6B7FE8; --blue-d:rgba(65,88,208,.1);
+  --gold:#C9A84C; --gold2:#E8C96A; --gold-d:rgba(201,168,76,.15);
+  --t1:#FFFFFF; --t2:rgba(255,255,255,.68); --t3:rgba(255,255,255,.38); --t4:rgba(255,255,255,.18);
+  --ok:#16A34A; --ok-d:rgba(22,163,74,.12);
+  --p1:#3B82F6; --p1d:rgba(59,130,246,.15);
+  --p2:#F97316; --p2d:rgba(249,115,22,.15);
+  --p3:#10B981; --p3d:rgba(16,185,129,.15);
+  --p4:#A855F7; --p4d:rgba(168,85,247,.15);
+  --r2:12px; --r3:18px; --r4:26px; --rf:9999px;
+  --sh:0 2px 12px rgba(0,0,0,.06),0 1px 3px rgba(0,0,0,.04);
+  --shd:0 8px 32px rgba(0,0,0,.4),0 2px 8px rgba(0,0,0,.3);
+  --ga:0 0 40px rgba(245,166,35,.12),0 0 80px rgba(245,166,35,.06);
+  --sha:0 6px 20px rgba(245,166,35,.22);
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html,body{height:100%;font-family:'Plus Jakarta Sans',sans-serif;background:var(--lbg);color:var(--link);overflow:hidden;}
+button{font-family:inherit;cursor:pointer;}
+
+#app{width:100%;max-width:430px;height:100dvh;margin:0 auto;display:flex;flex-direction:column;overflow:hidden;position:relative;background:var(--lbg);}
+
+.scr{position:absolute;inset:0;display:flex;flex-direction:column;opacity:0;pointer-events:none;transform:translateY(14px);transition:opacity .38s ease,transform .38s ease;}
+.scr.active{opacity:1;pointer-events:all;transform:none;}
+
+.sb{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;padding-bottom:72px;}
+.sb::-webkit-scrollbar{display:none;}
+
+/* NAV TOP */
+.tnav{background:var(--dk1);height:52px;flex-shrink:0;display:flex;align-items:center;justify-content:space-between;padding:0 18px;border-bottom:2px solid var(--amber);position:relative;z-index:20;box-shadow:0 2px 16px rgba(0,0,0,.3);}
+.tnav-l{display:flex;align-items:center;gap:9px;}
+.tnav-ch{font-size:14px;font-weight:900;letter-spacing:-3px;background:linear-gradient(135deg,var(--amber),var(--amber2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.tnav-br{font-size:14px;font-weight:800;color:var(--t1);}
+.tnav-r{display:flex;align-items:center;gap:9px;}
+.tnav-dy{font-size:11px;font-weight:600;color:var(--t3);}
+.tnav-bar{width:42px;height:3px;background:rgba(255,255,255,.08);border-radius:var(--rf);overflow:hidden;}
+.tnav-fill{height:100%;background:linear-gradient(90deg,var(--amber),var(--amber2));border-radius:var(--rf);box-shadow:0 0 6px rgba(245,166,35,.4);transition:width 1.2s ease;}
+.tnav-pct{font-size:14px;font-weight:800;color:var(--amber);}
+
+/* NAV BOTTOM */
+.bnav{height:56px;flex-shrink:0;background:var(--lsurf);border-top:1px solid var(--lborder);display:grid;grid-template-columns:repeat(5,1fr);position:relative;z-index:20;box-shadow:0 -2px 12px rgba(0,0,0,.06);}
+.bn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;background:none;border:none;transition:color .2s;padding:4px 2px;}
+.bn-ic{font-size:19px;}
+.bn-lb{font-size:8px;font-weight:700;letter-spacing:.3px;}
+.bn.active{color:var(--amber);}
+.bn:not(.active){color:var(--lmuted2);}
+
+/* PILLS */
+.pill{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:700;padding:4px 11px;border-radius:var(--rf);}
+.p-amber{background:var(--amber-d);color:var(--amber);border:1px solid var(--amber-b);}
+.p-ok{background:var(--ok-d);color:var(--ok);border:1px solid rgba(22,163,74,.2);}
+.p-muted{background:var(--lsurf2);color:var(--lmuted);border:1px solid var(--lborder);}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;border:none;border-radius:var(--r2);font-family:inherit;font-weight:700;font-size:14px;transition:all .2s;white-space:nowrap;cursor:pointer;}
+.btn-amber{background:linear-gradient(135deg,var(--amber),var(--amber2));color:#080F1E;padding:13px 22px;box-shadow:var(--sha);}
+.btn-amber:active{transform:scale(.97);}
+.btn-outline{background:transparent;color:var(--link);border:1.5px solid var(--lborder2);padding:12px 20px;}
+.btn-outline:active{background:var(--lsurf2);}
+.btn-ghost{background:var(--amber-d);color:var(--amber);border:1px solid var(--amber-b);padding:10px 18px;}
+.btn-dk{background:transparent;color:var(--t1);border:1.5px solid var(--dborder2);padding:10px 18px;}
+.btn-sm{padding:9px 16px;font-size:12px;}
+.btn-full{width:100%;}
+
+/* PROG */
+.prog-dk{height:4px;background:rgba(255,255,255,.07);border-radius:var(--rf);overflow:hidden;}
+.prog-lt{height:4px;background:var(--lborder);border-radius:var(--rf);overflow:hidden;}
+.prog-fill{height:100%;border-radius:var(--rf);background:linear-gradient(90deg,var(--amber),var(--amber2));box-shadow:0 0 8px rgba(245,166,35,.35);transition:width 1.2s ease;}
+
+/* SEC HEADER */
+.sch{padding:20px 18px 0;}
+.sch-ey{font-size:10px;font-weight:700;letter-spacing:3.5px;color:var(--amber);margin-bottom:4px;}
+.sch-ti{font-size:22px;font-weight:800;color:var(--link);line-height:1.15;margin-bottom:4px;}
+.sch-su{font-size:13px;color:var(--lmuted);line-height:1.65;margin-bottom:16px;}
+
+/* ════ LOADING ════ */
+#scr-load{background:var(--dk);align-items:center;justify-content:center;flex-direction:column;gap:22px;}
+.ld-pp{width:96px;height:132px;background:linear-gradient(145deg,#1A3A1A,#0D2010);border-radius:5px 13px 13px 5px;border:1px solid rgba(201,168,76,.28);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;box-shadow:-5px 0 0 #060E08,6px 8px 28px rgba(0,0,0,.6),var(--ga);animation:ppf 2s ease-in-out infinite;}
+@keyframes ppf{0%,100%{transform:rotate(-2.5deg) translateY(0);}50%{transform:rotate(1.5deg) translateY(-10px);}}
+.ld-ring{width:34px;height:34px;border:1.5px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;position:relative;}
+.ld-ring::before{content:'';position:absolute;inset:4px;border:1px solid rgba(201,168,76,.3);border-radius:50%;}
+.ld-pt{font-family:'Playfair Display',serif;font-size:12px;color:var(--gold);}
+.ld-ps{font-size:5.5px;font-weight:700;letter-spacing:2px;color:rgba(201,168,76,.4);}
+.ld-title{font-size:28px;font-weight:800;color:var(--t1);text-align:center;line-height:1.1;}
+.ld-title em{color:var(--amber);font-style:normal;}
+.ld-sub{font-size:12px;color:var(--t3);text-align:center;}
+.ld-bar{width:150px;height:3px;background:rgba(255,255,255,.07);border-radius:var(--rf);overflow:hidden;}
+.ld-fill{height:100%;background:linear-gradient(90deg,var(--amber),var(--amber2));border-radius:var(--rf);animation:ldf 2.4s ease forwards;}
+@keyframes ldf{0%{width:0}100%{width:100%}}
+.ld-msg{font-size:9px;font-weight:700;letter-spacing:3px;color:var(--t4);}
+
+/* ════ ONBOARDING ════ */
+#scr-ob{background:var(--dk);padding:52px 28px 40px;justify-content:space-between;}
+#scr-ob::before{content:'';position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,transparent,transparent 28px,rgba(245,166,35,.04) 28px,rgba(245,166,35,.04) 29px),repeating-linear-gradient(90deg,transparent,transparent 28px,rgba(245,166,35,.04) 28px,rgba(245,166,35,.04) 29px);pointer-events:none;}
+.ob-glow{position:absolute;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(245,166,35,.09) 0%,transparent 65%);top:50%;left:50%;transform:translate(-50%,-60%);pointer-events:none;}
+.ob-slides{flex:1;display:flex;flex-direction:column;justify-content:center;position:relative;z-index:1;}
+.ob-slide{display:none;flex-direction:column;align-items:center;gap:14px;text-align:center;}
+.ob-slide.active{display:flex;}
+.ob-icon{font-size:60px;margin-bottom:6px;}
+.ob-title{font-size:32px;font-weight:800;color:var(--t1);line-height:1.1;}
+.ob-title em{color:var(--amber);font-style:normal;}
+.ob-desc{font-size:15px;color:var(--t3);line-height:1.75;max-width:300px;}
+.ob-btm{position:relative;z-index:1;display:flex;flex-direction:column;gap:16px;}
+.ob-dots{display:flex;gap:8px;justify-content:center;}
+.ob-dot{width:6px;height:6px;border-radius:50%;background:var(--t4);transition:all .3s;}
+.ob-dot.active{background:var(--amber);width:22px;border-radius:var(--rf);}
+
+/* ════ HERO ════ */
+.hero{margin:16px 16px 0;background:linear-gradient(145deg,var(--dk1) 0%,#0A1330 100%);border-radius:var(--r4);padding:22px 20px;border:1px solid var(--dborder2);position:relative;overflow:hidden;box-shadow:var(--shd);}
+.hero-gl{position:absolute;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,rgba(245,166,35,.1) 0%,transparent 65%);top:-60px;right:-50px;pointer-events:none;}
+.hero-ch{position:absolute;right:-8px;bottom:-16px;font-size:80px;color:rgba(255,255,255,.025);font-weight:900;letter-spacing:-8px;pointer-events:none;}
+.hero-in{position:relative;z-index:1;}
+.h-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:16px;}
+.h-ey{font-size:9px;font-weight:700;letter-spacing:3px;color:rgba(245,166,35,.75);margin-bottom:4px;}
+.h-nm{font-size:22px;font-weight:800;color:var(--t1);line-height:1.1;margin-bottom:3px;}
+.h-rl{font-size:11px;color:var(--t3);}
+.h-pp{width:42px;height:56px;background:linear-gradient(145deg,#1A3A1A,#0D2010);border-radius:3px 8px 8px 3px;border:1px solid rgba(201,168,76,.22);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;box-shadow:-2px 0 0 #081408;flex-shrink:0;}
+.h-pp-star{font-size:9px;color:var(--gold);}
+.h-pp-txt{font-size:5px;font-weight:700;letter-spacing:1px;color:rgba(201,168,76,.38);}
+.h-dest{background:rgba(255,255,255,.05);border-radius:var(--r2);padding:12px 14px;display:flex;align-items:center;gap:12px;border:1px solid var(--dborder);margin-bottom:16px;}
+.h-dest-ic{font-size:22px;}
+.h-dest-lb{font-size:9px;font-weight:700;letter-spacing:1.5px;color:var(--t4);margin-bottom:2px;}
+.h-dest-nm{font-size:14px;font-weight:700;color:var(--t1);}
+.h-dest-dy{font-size:11px;font-weight:600;color:var(--amber);}
+.h-dest-sl{font-size:11px;font-weight:500;color:var(--t3);margin-top:1px;}
+.h-prog-hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;}
+.h-prog-lb{font-size:9px;font-weight:700;letter-spacing:1.5px;color:var(--t4);}
+.h-prog-pc{font-size:15px;font-weight:800;color:var(--amber);}
+
+/* NEXT ACTION */
+.nxt{margin:14px 16px 0;background:var(--amber-d);border:1px solid var(--amber-b);border-radius:var(--r3);padding:16px;display:flex;align-items:center;gap:14px;cursor:pointer;transition:all .2s;}
+.nxt:active{background:rgba(245,166,35,.2);}
+.nxt-ic{font-size:28px;flex-shrink:0;}
+.nxt-lb{font-size:9px;font-weight:700;letter-spacing:2px;color:rgba(245,166,35,.75);margin-bottom:3px;}
+.nxt-ti{font-size:14px;font-weight:800;color:var(--link);}
+.nxt-su{font-size:11px;color:var(--lmuted);margin-top:2px;}
+.nxt-ar{font-size:20px;color:var(--amber);margin-left:auto;flex-shrink:0;}
+
+/* STAMPS MINI */
+.stw{margin:14px 16px 0;}
+.stw-hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+.stw-ti{font-size:14px;font-weight:800;color:var(--link);}
+.stw-ct{font-size:11px;font-weight:600;color:var(--lmuted);}
+.stw-row{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;}
+.stm{border-radius:var(--r2);padding:11px 6px;text-align:center;position:relative;overflow:hidden;border:1px solid rgba(255,255,255,.06);}
+.stm::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.07),transparent 60%);pointer-events:none;}
+.stm::after{content:'';position:absolute;inset:4px;border:1px dashed rgba(255,255,255,.12);border-radius:8px;pointer-events:none;}
+.stm.locked{opacity:.18;filter:grayscale(1);}
+.stm-ic{font-size:21px;display:block;margin-bottom:3px;}
+.stm-nm{font-size:6.5px;font-weight:700;color:rgba(255,255,255,.88);line-height:1.25;}
+.stm-ck{position:absolute;top:3px;right:3px;width:13px;height:13px;border-radius:50%;background:var(--ok);font-size:7px;display:flex;align-items:center;justify-content:center;color:white;box-shadow:0 0 6px rgba(22,163,74,.4);}
+
+/* CUPRUM TEASER */
+.cup-tea{margin:14px 16px 0;background:var(--lsurf);border-radius:var(--r3);border:1px solid var(--lborder);box-shadow:var(--sh);overflow:hidden;}
+.ct-hd{padding:14px 16px;border-bottom:1px solid var(--lborder);display:flex;align-items:center;gap:12px;}
+.ct-ic{font-size:24px;}
+.ct-ti{font-size:14px;font-weight:800;color:var(--link);}
+.ct-su{font-size:11px;color:var(--lmuted);margin-top:1px;}
+.ct-stats{display:grid;grid-template-columns:repeat(3,1fr);padding:14px;gap:10px;}
+.ct-sv{font-size:22px;font-weight:800;color:var(--amber);line-height:1;}
+.ct-sl{font-size:9px;font-weight:600;color:var(--lmuted);letter-spacing:.5px;margin-top:2px;}
+
+/* ════ VIAJE ════ */
+.tl{display:flex;flex-direction:column;gap:10px;}
+.ph{border-radius:var(--r3);overflow:hidden;transition:all .25s;}
+.ph.ph-done{background:var(--lsurf);border:1px solid var(--lborder);box-shadow:var(--sh);}
+.ph.ph-act{background:var(--lsurf);border:1px solid rgba(245,166,35,.4);box-shadow:0 4px 20px rgba(245,166,35,.08);}
+.ph.ph-lock{background:var(--lsurf2);border:1px solid var(--lborder);opacity:.5;}
+.ph-stripe{height:4px;}
+.ph-hd{display:flex;align-items:center;gap:12px;padding:15px 16px;cursor:pointer;}
+.ph-dot{width:40px;height:40px;border-radius:var(--r2);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:18px;}
+.ph-inf{flex:1;}
+.ph-days{font-size:9px;font-weight:700;letter-spacing:1.5px;color:var(--lmuted);margin-bottom:2px;}
+.ph-name{font-size:15px;font-weight:800;color:var(--link);}
+.ph-ch{font-size:12px;color:var(--lmuted2);transition:transform .3s;}
+.ph.open .ph-ch{transform:rotate(90deg);}
+.ph-body{display:none;padding:0 16px 16px;}
+.ph.open .ph-body{display:block;}
+.ph-quote{font-size:13px;color:var(--link2);line-height:1.7;border-left:3px solid var(--amber);padding-left:12px;margin-bottom:14px;font-style:italic;}
+.ph-sv{background:var(--amber-g);border:1px solid var(--amber-b);border-radius:var(--r2);padding:14px;display:flex;align-items:center;justify-content:space-between;gap:12px;}
+.psv-ey{font-size:9px;font-weight:700;letter-spacing:2px;color:var(--amber);margin-bottom:3px;}
+.psv-ti{font-size:13px;font-weight:700;color:var(--link);margin-bottom:2px;}
+.psv-hi{font-size:11px;color:var(--lmuted);}
+
+/* ════ CUPRUM PAGE ════ */
+.cup-hero{margin:16px 16px 0;background:linear-gradient(145deg,var(--dk1),#0A1330);border-radius:var(--r4);padding:28px 22px;border:1px solid var(--dborder2);box-shadow:var(--shd);position:relative;overflow:hidden;text-align:center;}
+.cup-hero::before{content:'';position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,transparent,transparent 22px,rgba(245,166,35,.04) 22px,rgba(245,166,35,.04) 23px),repeating-linear-gradient(90deg,transparent,transparent 22px,rgba(245,166,35,.04) 22px,rgba(245,166,35,.04) 23px);pointer-events:none;}
+.ch-g1{position:absolute;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(245,166,35,.1) 0%,transparent 65%);top:-80px;right:-80px;pointer-events:none;}
+.ch-g2{position:absolute;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(65,88,208,.12) 0%,transparent 65%);bottom:-40px;left:-40px;pointer-events:none;}
+.ch-wm{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:130px;color:rgba(255,255,255,.025);font-weight:900;letter-spacing:-10px;pointer-events:none;}
+.ch-in{position:relative;z-index:1;}
+.ch-ey{font-size:9px;font-weight:700;letter-spacing:4px;color:rgba(245,166,35,.7);margin-bottom:10px;}
+.ch-ti{font-size:26px;font-weight:800;color:var(--t1);line-height:1.1;margin-bottom:8px;}
+.ch-su{font-size:13px;color:var(--t3);line-height:1.7;margin-bottom:20px;}
+.ch-sts{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+.ch-st{background:rgba(255,255,255,.05);border-radius:var(--r2);padding:13px 8px;border:1px solid var(--dborder);}
+.ch-sv{font-size:22px;font-weight:800;color:var(--amber);line-height:1;margin-bottom:3px;}
+.ch-sl{font-size:8.5px;font-weight:600;color:var(--t4);letter-spacing:.5px;line-height:1.3;}
+
+.neg-c{background:var(--lsurf);border-radius:var(--r2);border:1px solid var(--lborder);padding:15px;display:flex;align-items:flex-start;gap:13px;box-shadow:var(--sh);}
+.neg-ic{width:44px;height:44px;border-radius:var(--r2);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:22px;}
+.neg-nm{font-size:14px;font-weight:800;color:var(--link);margin-bottom:3px;}
+.neg-ds{font-size:11px;color:var(--lmuted);line-height:1.55;}
+
+.val-scroll{display:flex;gap:10px;overflow-x:auto;padding:0 16px 6px;-webkit-overflow-scrolling:touch;}
+.val-scroll::-webkit-scrollbar{display:none;}
+.val-c{border-radius:var(--r3);padding:18px 15px;flex-shrink:0;min-width:170px;border:1px solid;}
+.vc-ic{font-size:26px;margin-bottom:11px;}
+.vc-nm{font-size:15px;font-weight:800;margin-bottom:3px;}
+.vc-ph{font-size:10.5px;font-style:italic;margin-bottom:12px;opacity:.65;}
+.vc-dv{height:1px;margin-bottom:11px;}
+.vc-it{font-size:11px;line-height:1.65;display:flex;gap:5px;margin-bottom:4px;}
+.vc-it::before{content:'·';color:var(--amber);font-weight:700;flex-shrink:0;}
+
+/* ════ BENEFICIOS ════ */
+.ben-c{background:var(--lsurf);border-radius:var(--r2);border:1px solid var(--lborder);padding:14px 15px;display:flex;align-items:flex-start;gap:13px;box-shadow:var(--sh);transition:all .2s;}
+.ben-c:active{border-color:rgba(245,166,35,.35);}
+.bi-ic{font-size:22px;flex-shrink:0;margin-top:1px;}
+.bi-nm{font-size:14px;font-weight:700;color:var(--link);margin-bottom:3px;}
+.bi-ds{font-size:11px;color:var(--lmuted);line-height:1.55;}
+.ben-st{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--lmuted2);margin:20px 0 10px;padding-left:2px;}
+.ben-st:first-child{margin-top:0;}
+
+/* ════ EQUIPO ════ */
+.lider-c{background:linear-gradient(145deg,var(--dk1),#0A1330);border-radius:var(--r3);padding:24px 20px;border:1px solid var(--dborder2);box-shadow:var(--shd),var(--ga);text-align:center;margin-bottom:14px;position:relative;overflow:hidden;}
+.lider-c::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 30%,rgba(245,166,35,.09) 0%,transparent 65%);pointer-events:none;}
+.lc-in{position:relative;z-index:1;}
+.lc-av{width:68px;height:68px;border-radius:50%;background:var(--dk3);border:2px solid var(--amber);margin:0 auto 12px;display:flex;align-items:center;justify-content:center;font-size:30px;box-shadow:var(--ga);}
+.lc-lb{font-size:9px;font-weight:700;letter-spacing:3px;color:rgba(245,166,35,.75);margin-bottom:5px;}
+.lc-nm{font-size:20px;font-weight:800;color:var(--t1);margin-bottom:3px;}
+.lc-rl{font-size:12px;color:var(--t3);margin-bottom:18px;}
+.lc-bts{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+
+.org-c{background:var(--lsurf);border-radius:var(--r3);border:1px solid var(--lborder);overflow:hidden;box-shadow:var(--sh);margin-bottom:14px;}
+.org-hd{padding:13px 16px;border-bottom:1px solid var(--lborder);}
+.org-ht{font-size:14px;font-weight:800;color:var(--link);}
+.org-it{display:flex;align-items:center;gap:13px;padding:12px 16px;border-bottom:1px solid var(--lborder);}
+.org-it:last-child{border-bottom:none;}
+.org-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;}
+.org-rl{font-size:13px;font-weight:700;color:var(--link);margin-bottom:1px;}
+.org-ds{font-size:11px;color:var(--lmuted);line-height:1.45;}
+
+.rh-c{background:var(--lsurf);border-radius:var(--r3);border:1px solid var(--lborder);padding:16px;display:flex;align-items:center;gap:14px;box-shadow:var(--sh);margin-bottom:10px;}
+.rh-av{width:50px;height:50px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:22px;border:1.5px solid var(--lborder);}
+.rh-nm{font-size:15px;font-weight:800;color:var(--link);margin-bottom:3px;}
+.rh-ph{font-size:12px;color:var(--lmuted);margin-bottom:2px;}
+.rh-em{font-size:11px;color:var(--blue);font-weight:700;}
+
+.cnt-box{background:var(--lsurf2);border-radius:var(--r2);border:1px solid var(--lborder);padding:15px;margin-top:14px;}
+.cnt-ti{font-size:11px;font-weight:700;letter-spacing:1px;color:var(--lmuted);margin-bottom:12px;}
+.cnt-row{display:flex;gap:10px;align-items:center;margin-bottom:10px;}
+.cnt-row:last-child{margin-bottom:0;}
+.cnt-ic{font-size:17px;}
+.cnt-tx{font-size:13px;color:var(--link2);}
+
+/* ════ SURVEY SHEET ════ */
+.sv-ov{position:absolute;inset:0;z-index:60;background:rgba(8,15,30,.85);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);display:none;align-items:flex-end;}
+.sv-ov.open{display:flex;}
+.sv-sh{width:100%;background:var(--lsurf);border-radius:var(--r4) var(--r4) 0 0;border-top:1px solid var(--lborder);padding:22px 20px 36px;animation:shUp .38s cubic-bezier(.32,0,.15,1);max-height:90vh;overflow-y:auto;}
+@keyframes shUp{from{transform:translateY(100%)}to{transform:none}}
+.sv-hdl{width:38px;height:4px;background:var(--lborder2);border-radius:var(--rf);margin:0 auto 22px;}
+.sv-st{height:3px;background:linear-gradient(90deg,var(--amber),var(--amber2));border-radius:var(--rf);margin-bottom:18px;}
+.sv-dy{font-size:10px;font-weight:700;letter-spacing:3px;color:var(--amber);margin-bottom:7px;}
+.sv-ti{font-size:22px;font-weight:800;color:var(--link);margin-bottom:6px;line-height:1.2;}
+.sv-de{font-size:13px;color:var(--lmuted);line-height:1.7;margin-bottom:20px;}
+.sv-hint{background:var(--amber-d);border:1px solid var(--amber-b);border-radius:var(--r2);padding:13px 15px;display:flex;align-items:center;gap:12px;margin-bottom:20px;}
+.sv-hint-ic{font-size:28px;}
+.sv-hint-lb{font-size:9px;font-weight:700;letter-spacing:2px;color:rgba(245,166,35,.75);margin-bottom:2px;}
+.sv-hint-nm{font-size:14px;font-weight:700;color:var(--link);}
+.sv-acts{display:flex;flex-direction:column;gap:10px;}
+
+/* ════ STAMP UNLOCK ════ */
+.su-ov{position:absolute;inset:0;z-index:100;background:rgba(8,15,30,.96);display:none;align-items:center;justify-content:center;flex-direction:column;gap:18px;}
+.su-ov.show{display:flex;animation:fadeIn .3s ease;}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.su-rays{position:absolute;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(245,166,35,.18) 0%,transparent 65%);animation:rayP 1.6s ease-in-out infinite;}
+@keyframes rayP{0%,100%{transform:scale(1)}50%{transform:scale(1.18)}}
+.su-label{font-size:10px;font-weight:700;letter-spacing:4px;color:var(--amber);position:relative;z-index:1;}
+.su-stamp{width:116px;height:116px;border-radius:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;position:relative;z-index:1;border:2px solid rgba(245,166,35,.3);animation:stB .65s cubic-bezier(.34,1.56,.64,1) .1s both;}
+@keyframes stB{0%{transform:scale(0) rotate(-15deg);opacity:0}100%{transform:scale(1) rotate(0);opacity:1}}
+.su-ic{font-size:50px;}
+.su-nm{font-size:11px;font-weight:700;letter-spacing:.5px;color:rgba(255,255,255,.9);}
+.su-title{font-size:26px;font-weight:800;color:var(--t1);text-align:center;line-height:1.15;position:relative;z-index:1;}
+
+/* ════ TOAST ════ */
+.toast{position:absolute;bottom:68px;left:16px;right:16px;z-index:80;background:var(--dk1);border:1px solid rgba(245,166,35,.28);border-radius:var(--r2);padding:13px 16px;display:flex;align-items:center;gap:12px;box-shadow:var(--shd),var(--ga);opacity:0;transform:translateY(8px);transition:all .4s cubic-bezier(.34,1.2,.64,1);pointer-events:none;}
+.toast.show{opacity:1;transform:none;}
+.toast-ic{font-size:26px;}
+.toast-ey{font-size:9px;font-weight:700;letter-spacing:2px;color:var(--amber);margin-bottom:2px;}
+.toast-nm{font-size:15px;font-weight:800;color:var(--t1);}
+
+/* UTILS */
+.mt14{margin-top:14px;} .mt20{margin-top:20px;} .h16{height:16px;}
+.pad{padding:0 16px;}
+.gap9{display:flex;flex-direction:column;gap:9px;}
+.gap10{display:flex;flex-direction:column;gap:10px;}
+
+/* ════════════════════════════════════
+   RESPONSIVE — TABLET (768px–1023px)
+════════════════════════════════════ */
+@media (min-width: 768px) {
+  html, body { overflow: hidden; }
+
+  #app {
+    max-width: 600px;
+    box-shadow: 0 0 60px rgba(0,0,0,.18);
+  }
+
+  /* Nav top */
+  .tnav { padding: 0 28px; height: 58px; }
+  .tnav-br { font-size: 16px; }
+  .tnav-bar { width: 56px; }
+  .tnav-pct { font-size: 16px; }
+
+  /* Nav bottom */
+  .bnav { height: 64px; }
+  .bn-ic { font-size: 22px; }
+  .bn-lb { font-size: 9px; }
+
+  /* Hero */
+  .hero { margin: 20px 20px 0; padding: 26px 24px; border-radius: 22px; }
+  .h-nm { font-size: 26px; }
+  .h-dest { padding: 14px 18px; }
+  .h-dest-ic { font-size: 26px; }
+  .h-dest-nm { font-size: 16px; }
+
+  /* Next action */
+  .nxt { margin: 16px 20px 0; padding: 18px 20px; border-radius: 16px; }
+  .nxt-ic { font-size: 32px; }
+  .nxt-ti { font-size: 16px; }
+
+  /* Stamps */
+  .stw { margin: 16px 20px 0; }
+  .stw-ti { font-size: 16px; }
+  .stw-row { gap: 12px; }
+  .stm { padding: 14px 8px; border-radius: 14px; }
+  .stm-ic { font-size: 26px; }
+  .stm-nm { font-size: 8px; }
+
+  /* Cuprum teaser */
+  .cup-tea { margin: 16px 20px 0; }
+  .ct-sv { font-size: 26px; }
+
+  /* Section header */
+  .sch { padding: 24px 20px 0; }
+  .sch-ti { font-size: 26px; }
+  .sch-su { font-size: 14px; }
+
+  /* Viaje timeline */
+  .ph-hd { padding: 18px 20px; }
+  .ph-dot { width: 46px; height: 46px; font-size: 22px; }
+  .ph-name { font-size: 17px; }
+  .ph-body { padding: 0 20px 20px; }
+  .ph-quote { font-size: 14px; }
+
+  /* Cuprum page */
+  .cup-hero { margin: 20px 20px 0; padding: 36px 28px; }
+  .ch-ti { font-size: 30px; }
+  .ch-su { font-size: 14px; }
+  .neg-c { padding: 18px; gap: 16px; }
+  .neg-nm { font-size: 16px; }
+  .neg-ds { font-size: 12px; }
+  .val-scroll { padding: 0 20px 8px; }
+  .val-c { min-width: 190px; padding: 20px 16px; }
+
+  /* Beneficios */
+  .ben-c { padding: 16px 18px; gap: 16px; }
+  .bi-nm { font-size: 15px; }
+  .bi-ds { font-size: 12px; }
+  .bi-ic { font-size: 26px; }
+
+  /* Equipo */
+  .lider-c { padding: 28px 24px; }
+  .lc-nm { font-size: 24px; }
+  .org-c { border-radius: 16px; }
+  .org-rl { font-size: 14px; }
+  .org-ds { font-size: 12px; }
+  .rh-c { padding: 18px; gap: 16px; }
+  .rh-nm { font-size: 16px; }
+
+  /* Survey sheet */
+  .sv-sh { padding: 28px 28px 44px; }
+  .sv-ti { font-size: 26px; }
+
+  /* Padding utils */
+  .pad { padding: 0 20px; }
+  .h16 { height: 20px; }
+
+  /* Scroll body bottom padding */
+  .sb { padding-bottom: 84px; }
+}
+
+/* ════════════════════════════════════
+   RESPONSIVE — DESKTOP (1024px+)
+════════════════════════════════════ */
+@media (min-width: 1024px) {
+  html, body {
+    overflow: hidden;
+    background: #0D1740; /* navy backdrop behind the app */
+  }
+
+  /* App container — wider, centered, with subtle card effect */
+  #app {
+    max-width: 680px;
+    height: 100dvh;
+    box-shadow:
+      0 0 0 1px rgba(255,255,255,.06),
+      0 24px 80px rgba(0,0,0,.5),
+      0 4px 20px rgba(0,0,0,.3);
+    border-radius: 0;
+  }
+
+  /* Nav top */
+  .tnav { padding: 0 32px; height: 60px; }
+  .tnav-br { font-size: 17px; }
+  .tnav-ch { font-size: 16px; }
+  .tnav-bar { width: 64px; height: 4px; }
+  .tnav-pct { font-size: 17px; }
+  .tnav-dy { font-size: 12px; }
+
+  /* Nav bottom */
+  .bnav { height: 68px; }
+  .bn-ic { font-size: 23px; }
+  .bn-lb { font-size: 9.5px; letter-spacing: .5px; }
+
+  /* Scroll body */
+  .sb { padding-bottom: 88px; }
+
+  /* Hero */
+  .hero {
+    margin: 24px 24px 0;
+    padding: 30px 28px;
+    border-radius: 24px;
+  }
+  .h-nm { font-size: 28px; }
+  .h-rl { font-size: 12px; }
+  .h-ey { font-size: 10px; letter-spacing: 3.5px; }
+  .h-dest { padding: 16px 20px; gap: 16px; }
+  .h-dest-ic { font-size: 28px; }
+  .h-dest-nm { font-size: 17px; }
+  .h-dest-dy { font-size: 12px; }
+  .h-prog-hd { margin-bottom: 10px; }
+  .h-prog-lb { font-size: 10px; }
+  .h-prog-pc { font-size: 17px; }
+  .prog-dk { height: 5px; }
+
+  /* Next action */
+  .nxt {
+    margin: 18px 24px 0;
+    padding: 20px 24px;
+    border-radius: 18px;
+  }
+  .nxt-ic { font-size: 34px; }
+  .nxt-lb { font-size: 10px; }
+  .nxt-ti { font-size: 17px; }
+  .nxt-su { font-size: 12px; }
+  .nxt-ar { font-size: 24px; }
+
+  /* Stamps */
+  .stw { margin: 18px 24px 0; }
+  .stw-ti { font-size: 17px; }
+  .stw-ct { font-size: 12px; }
+  .stw-row { grid-template-columns: repeat(4,1fr); gap: 14px; }
+  .stm { padding: 16px 10px; border-radius: 16px; }
+  .stm-ic { font-size: 28px; margin-bottom: 5px; }
+  .stm-nm { font-size: 8.5px; }
+  .stm-ck { width: 16px; height: 16px; font-size: 8px; }
+
+  /* Cuprum teaser */
+  .cup-tea { margin: 18px 24px 0; }
+  .ct-hd { padding: 16px 20px; gap: 14px; }
+  .ct-ic { font-size: 28px; }
+  .ct-ti { font-size: 16px; }
+  .ct-su { font-size: 12px; }
+  .ct-stats { padding: 18px 20px; gap: 14px; }
+  .ct-sv { font-size: 28px; }
+  .ct-sl { font-size: 10px; }
+
+  /* Section header */
+  .sch { padding: 28px 24px 0; }
+  .sch-ey { font-size: 11px; letter-spacing: 4px; }
+  .sch-ti { font-size: 28px; }
+  .sch-su { font-size: 14px; margin-bottom: 20px; }
+
+  /* Viaje — 2-col grid on desktop */
+  .tl {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    align-items: start;
+  }
+  .ph-hd { padding: 18px 22px; gap: 14px; }
+  .ph-dot { width: 48px; height: 48px; font-size: 22px; border-radius: 14px; }
+  .ph-name { font-size: 17px; }
+  .ph-days { font-size: 10px; }
+  .ph-body { padding: 0 22px 20px; }
+  .ph-quote { font-size: 13.5px; margin-bottom: 16px; }
+  .psv-ti { font-size: 14px; }
+  .psv-hi { font-size: 11.5px; }
+  .ph-stripe { height: 5px; }
+
+  /* Cuprum page */
+  .cup-hero {
+    margin: 24px 24px 0;
+    padding: 40px 36px;
+    border-radius: 24px;
+  }
+  .ch-ey { font-size: 10px; letter-spacing: 5px; }
+  .ch-ti { font-size: 34px; }
+  .ch-su { font-size: 14px; margin-bottom: 24px; }
+  .ch-sts { gap: 14px; }
+  .ch-st { padding: 16px 10px; }
+  .ch-sv { font-size: 26px; }
+  .ch-sl { font-size: 9.5px; }
+
+  /* Negocios — 2 col grid on desktop */
+  .gap10 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  /* but only when inside cuprum page — override for equipo gap10 */
+  #pg-equipo .gap10 { display: flex; flex-direction: column; gap: 10px; }
+
+  .neg-c { padding: 18px; gap: 16px; border-radius: 16px; }
+  .neg-ic { width: 50px; height: 50px; font-size: 24px; }
+  .neg-nm { font-size: 16px; }
+  .neg-ds { font-size: 12px; }
+
+  /* Values scroll stays horizontal but cards are bigger */
+  .val-scroll { padding: 0 24px 10px; gap: 14px; }
+  .val-c { min-width: 210px; padding: 22px 18px; border-radius: 18px; }
+  .vc-ic { font-size: 30px; margin-bottom: 13px; }
+  .vc-nm { font-size: 17px; }
+  .vc-ph { font-size: 11.5px; }
+  .vc-it { font-size: 12px; }
+
+  /* Beneficios — 2 col grid on desktop */
+  .gap9 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .ben-c { padding: 18px 20px; gap: 16px; border-radius: 14px; }
+  .bi-ic { font-size: 26px; }
+  .bi-nm { font-size: 15px; }
+  .bi-ds { font-size: 12px; }
+  .ben-st { font-size: 11px; margin: 24px 0 12px; }
+
+  /* Equipo */
+  .lider-c { padding: 32px 28px; margin-bottom: 18px; border-radius: 22px; }
+  .lc-av { width: 80px; height: 80px; font-size: 36px; }
+  .lc-nm { font-size: 26px; }
+  .lc-rl { font-size: 13px; }
+  .org-c { border-radius: 18px; margin-bottom: 18px; }
+  .org-hd { padding: 16px 20px; }
+  .org-ht { font-size: 16px; }
+  .org-it { padding: 14px 20px; gap: 16px; }
+  .org-rl { font-size: 14px; }
+  .org-ds { font-size: 12px; }
+  .rh-c { padding: 20px; gap: 18px; border-radius: 18px; margin-bottom: 12px; }
+  .rh-av { width: 58px; height: 58px; font-size: 26px; }
+  .rh-nm { font-size: 17px; }
+  .rh-ph { font-size: 13px; }
+  .rh-em { font-size: 12px; }
+  .cnt-box { padding: 18px; margin-top: 18px; border-radius: 14px; }
+  .cnt-ti { font-size: 12px; }
+  .cnt-ic { font-size: 20px; }
+  .cnt-tx { font-size: 14px; }
+
+  /* Survey sheet — centered on desktop */
+  .sv-ov { align-items: center; justify-content: center; }
+  .sv-sh {
+    width: 560px;
+    border-radius: 24px;
+    padding: 36px 36px 44px;
+    animation: none;
+    box-shadow: 0 24px 80px rgba(0,0,0,.5);
+  }
+  .sv-hdl { display: none; }
+  .sv-ti { font-size: 26px; }
+  .sv-de { font-size: 14px; }
+  .sv-hint { padding: 16px 18px; }
+  .sv-hint-ic { font-size: 32px; }
+  .sv-hint-nm { font-size: 16px; }
+
+  /* Toast */
+  .toast {
+    left: 24px; right: 24px; bottom: 80px;
+    padding: 16px 20px;
+    border-radius: 16px;
+  }
+  .toast-ic { font-size: 30px; }
+  .toast-nm { font-size: 17px; }
+
+  /* Stamp unlock */
+  .su-stamp { width: 136px; height: 136px; border-radius: 24px; }
+  .su-ic { font-size: 60px; }
+  .su-title { font-size: 30px; }
+
+  /* Padding utils */
+  .pad { padding: 0 24px; }
+  .h16 { height: 24px; }
+  .mt14 { margin-top: 18px; }
+  .mt20 { margin-top: 24px; }
+
+  /* Onboarding */
+  #scr-ob { padding: 64px 48px 52px; }
+  .ob-icon { font-size: 72px; }
+  .ob-title { font-size: 40px; }
+  .ob-desc { font-size: 17px; max-width: 420px; }
+  .ob-btm { gap: 20px; max-width: 420px; margin: 0 auto; width: 100%; }
+
+  /* Loading */
+  .ld-pp { width: 110px; height: 152px; }
+  .ld-title { font-size: 34px; }
+  .ld-sub { font-size: 14px; }
+  .ld-bar { width: 180px; }
+}
+
+/* ════════════════════════════════════
+   RESPONSIVE — WIDE DESKTOP (1280px+)
+════════════════════════════════════ */
+@media (min-width: 1280px) {
+  #app {
+    max-width: 720px;
+  }
+
+  /* Slightly more breathing room */
+  .hero { margin: 28px 28px 0; padding: 32px 32px; }
+  .nxt  { margin: 20px 28px 0; }
+  .stw  { margin: 20px 28px 0; }
+  .cup-tea { margin: 20px 28px 0; }
+  .cup-hero { margin: 28px 28px 0; padding: 44px 40px; }
+  .sch  { padding: 32px 28px 0; }
+  .val-scroll { padding: 0 28px 10px; }
+  .pad  { padding: 0 28px; }
+  .tnav { padding: 0 36px; }
+}
+</style>
+</head>
+<body>
+<div id="app">
+
+<!-- LOADING -->
+<div class="scr active" id="scr-load" style="background:var(--dk);align-items:center;justify-content:center;flex-direction:column;gap:22px;">
+  <div class="ld-pp">
+    <div class="ld-ring">✦</div>
+    <div class="ld-pt">PASAPORTE</div>
+    <div class="ld-ps">CUPRUM</div>
+  </div>
+  <div class="ld-title">Bienvenido a<br><em>Cuprum.</em></div>
+  <div class="ld-sub">Tu pasaporte está listo.</div>
+  <div class="ld-bar"><div class="ld-fill"></div></div>
+  <div class="ld-msg">PREPARANDO TU PASAPORTE…</div>
+</div>
+
+<!-- ONBOARDING -->
+<div class="scr" id="scr-ob">
+  <div class="ob-glow"></div>
+  <div class="ob-slides">
+    <div class="ob-slide active"><div class="ob-icon">✈️</div><div class="ob-title">Bienvenido a<br><em>Cuprum</em></div><div class="ob-desc">Hoy inicia tu viaje. Este es tu punto de partida en Red Comercial.</div></div>
+    <div class="ob-slide"><div class="ob-icon">🗺️</div><div class="ob-title">Tu proceso<br><em>de 90 días</em></div><div class="ob-desc">4 etapas. Cada una con acompañamiento, claridad y un sello que reconoce tu avance.</div></div>
+    <div class="ob-slide"><div class="ob-icon">🏅</div><div class="ob-title">Completa y<br><em>avanza</em></div><div class="ob-desc">Evalúa tu integración en cada etapa. Al día 90, recibes tu Pasaporte Cuprum.</div></div>
+  </div>
+  <div class="ob-btm">
+    <div class="ob-dots"><div class="ob-dot active"></div><div class="ob-dot"></div><div class="ob-dot"></div></div>
+    <button class="btn btn-amber btn-full" id="ob-btn">CONTINUAR →</button>
+    <button class="btn btn-outline btn-full" style="font-size:12px;padding:10px" onclick="goMain()">Ir directo al pasaporte</button>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="scr" id="scr-main">
+  <div class="tnav">
+    <div class="tnav-l"><div class="tnav-ch">▶▶</div><div class="tnav-br">Pasaporte Cuprum</div></div>
+    <div class="tnav-r">
+      <div class="tnav-dy" id="tnav-dy">Día 18</div>
+      <div class="tnav-bar"><div class="tnav-fill" id="tnav-fill"></div></div>
+      <div class="tnav-pct" id="tnav-pct">0%</div>
+    </div>
+  </div>
+
+  <!-- PAGE: PASAPORTE -->
+  <div class="sb" id="pg-pasaporte">
+    <div class="hero">
+      <div class="hero-gl"></div><div class="hero-ch">▶▶</div>
+      <div class="hero-in">
+        <div class="h-top">
+          <div>
+            <div class="h-ey" id="h-ey">TU PROCESO DE INTEGRACIÓN</div>
+            <div class="h-nm" id="h-nm">Ana Martínez</div>
+            <div class="h-rl" id="h-rl">Ventas Mostrador · Santa Clara · MD</div>
+          </div>
+          <div class="h-pp"><div class="h-pp-star">✦</div><div class="h-pp-txt">PASS</div></div>
+        </div>
+        <div class="h-dest">
+          <div class="h-dest-ic" id="h-dest-ic">🗺️</div>
+          <div>
+            <div class="h-dest-lb">TU ETAPA ACTUAL</div>
+            <div class="h-dest-nm" id="h-dest-nm">Inmersión — "Explorando la Ciudad"</div>
+            <div class="h-dest-sl" id="h-dest-sl">Explorando el mapa</div>
+            <div class="h-dest-dy" id="h-dest-dy">Día 18 de 90</div>
+          </div>
+        </div>
+        <div class="h-prog-hd"><div class="h-prog-lb">TU AVANCE</div><div class="h-prog-pc" id="h-pct">0%</div></div>
+        <div class="prog-dk"><div class="prog-fill" id="h-prog" style="width:0%"></div></div>
+      </div>
+    </div>
+
+    <div class="nxt" id="nxt-card" onclick="openSurvey('d30')">
+      <div class="nxt-ic">📋</div>
+      <div>
+        <div class="nxt-lb">ACCIÓN PENDIENTE</div>
+        <div class="nxt-ti" id="nxt-ti">Completa tu etapa de Inmersión</div>
+        <div class="nxt-su" id="nxt-su">Comparte tu experiencia y obtén tu sello 🗺️</div>
+      </div>
+      <div class="nxt-ar">›</div>
+    </div>
+
+    <div class="stw">
+      <div class="stw-hd"><div class="stw-ti">Tu avance del viaje</div><div class="stw-ct" id="st-ct">1 de 4 etapas completadas</div></div>
+      <div class="stw-row" id="st-row"></div>
+    </div>
+
+    <div class="cup-tea mt14">
+      <div class="ct-hd"><div class="ct-ic">🏭</div><div><div class="ct-ti">Grupo Cuprum</div><div class="ct-su">Empresa líder · Latinoamérica</div></div></div>
+      <div class="ct-stats">
+        <div><div class="ct-sv">70+</div><div class="ct-sl">AÑOS</div></div>
+        <div><div class="ct-sv">100+</div><div class="ct-sl">TIENDAS</div></div>
+        <div><div class="ct-sv">40+</div><div class="ct-sl">PAÍSES</div></div>
+      </div>
+    </div>
+    <div class="h16"></div>
+  </div>
+
+  <!-- PAGE: VIAJE -->
+  <div class="sb" id="pg-viaje" style="display:none">
+    <div class="sch">
+      <div class="sch-ey">TU PROCESO DE INTEGRACIÓN</div>
+      <div class="sch-ti">Las 4 Etapas</div>
+      <div class="sch-su">Tu progreso se construye etapa por etapa. Completa cada evaluación para avanzar.</div>
+      <div class="tl" id="tl"></div>
+    </div>
+    <div class="h16"></div>
+  </div>
+
+  <!-- PAGE: CUPRUM -->
+  <div class="sb" id="pg-cuprum" style="display:none">
+    <div class="cup-hero">
+      <div class="ch-g1"></div><div class="ch-g2"></div><div class="ch-wm">▶▶</div>
+      <div class="ch-in">
+        <div class="ch-ey">GRUPO CUPRUM · RED COMERCIAL</div>
+        <div class="ch-ti">Alcanzar lo<br>inalcanzable juntos.</div>
+        <div class="ch-su">Empresa mexicana fundada en 1948. Líder en extrusión de aluminio en Latinoamérica. Top 500 empresas de México.</div>
+        <div class="ch-sts">
+          <div class="ch-st"><div class="ch-sv">1948</div><div class="ch-sl">AÑO DE FUNDACIÓN</div></div>
+          <div class="ch-st"><div class="ch-sv">6K+</div><div class="ch-sl">COLABORADORES</div></div>
+          <div class="ch-st"><div class="ch-sv">#1</div><div class="ch-sl">EN LATAM</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="sch mt14">
+      <div class="sch-ey">RED COMERCIAL</div>
+      <div class="sch-ti">Nuestros Negocios</div>
+      <div class="sch-su">Tres negocios, una dirección. Tu rol forma parte de esta estructura.</div>
+      <div class="gap10" style="margin-bottom:20px">
+        <div class="neg-c"><div class="neg-ic" style="background:var(--p1d)">🏗️</div><div><div class="neg-nm">Metales Díaz</div><div class="neg-ds">Distribución de aluminio y metales al sector industrial. 12+ sucursales nacionales.</div></div></div>
+        <div class="neg-c"><div class="neg-ic" style="background:var(--p3d)">🏪</div><div><div class="neg-nm">Tiendas Cuprum</div><div class="neg-ds">Red de tiendas arquitectónicas. La mayor cobertura de aluminio en el país. 88+ puntos de venta.</div></div></div>
+        <div class="neg-c"><div class="neg-ic" style="background:var(--p4d)">🔩</div><div><div class="neg-nm">Alugama</div><div class="neg-ds">Aluminio con valor agregado para proyectos de gran escala e industria especializada.</div></div></div>
+      </div>
+      <div class="sch-ey">NUESTRA CULTURA</div>
+      <div class="sch-ti">Los 4 Valores</div>
+      <div class="sch-su">Guían cada decisión. Conócelos y vívelos en tu rol.</div>
+    </div>
+    <div class="val-scroll">
+      <div class="val-c" style="background:#F0FDF4;border-color:#BBF7D0"><div class="vc-ic">✅</div><div class="vc-nm" style="color:#14532D">Integridad</div><div class="vc-ph" style="color:#16A34A">"Hago lo correcto"</div><div class="vc-dv" style="background:#BBF7D0"></div><div class="vc-it" style="color:#374151">Hablo con la verdad siempre</div><div class="vc-it" style="color:#374151">Busco el bien colectivo</div><div class="vc-it" style="color:#374151">Cumplo normas y procesos</div></div>
+      <div class="val-c" style="background:#EFF6FF;border-color:#BFDBFE"><div class="vc-ic">🤝</div><div class="vc-nm" style="color:#1E3A8A">Respeto</div><div class="vc-ph" style="color:#2563EB">"¡Yo valoro y considero!"</div><div class="vc-dv" style="background:#BFDBFE"></div><div class="vc-it" style="color:#374151">Trato amable siempre</div><div class="vc-it" style="color:#374151">Escucho antes de hablar</div><div class="vc-it" style="color:#374151">Reconozco el valor de todos</div></div>
+      <div class="val-c" style="background:#F5F3FF;border-color:#DDD6FE"><div class="vc-ic">🙌</div><div class="vc-nm" style="color:#4C1D95">Humildad</div><div class="vc-ph" style="color:#7C3AED">"Adiós al ego"</div><div class="vc-dv" style="background:#DDD6FE"></div><div class="vc-it" style="color:#374151">Acepto y aprendo de errores</div><div class="vc-it" style="color:#374151">Pido ayuda sin dudar</div><div class="vc-it" style="color:#374151">Celebro logros de otros</div></div>
+      <div class="val-c" style="background:#FFFBEB;border-color:#FDE68A"><div class="vc-ic">💪</div><div class="vc-nm" style="color:#78350F">Resp. Incondicional</div><div class="vc-ph" style="color:#D97706">"¡Hazlo tuyo!"</div><div class="vc-dv" style="background:#FDE68A"></div><div class="vc-it" style="color:#374151">Si veo algo mal, lo corrijo</div><div class="vc-it" style="color:#374151">Asumo el impacto de mis acciones</div><div class="vc-it" style="color:#374151">Me anticipo a los problemas</div></div>
+    </div>
+    <div class="h16"></div>
+  </div>
+
+  <!-- PAGE: BENEFICIOS -->
+  <div class="sb" id="pg-beneficios" style="display:none">
+    <div class="sch">
+      <div class="sch-ey">TUS BENEFICIOS</div>
+      <div class="sch-ti">Lo que Cuprum te ofrece</div>
+      <div class="sch-su">Prestaciones y beneficios que forman parte de tu compensación total.</div>
+      <div class="ben-st">COMPENSACIÓN ECONÓMICA</div>
+      <div class="gap9">
+        <div class="ben-c"><div class="bi-ic">💰</div><div><div class="bi-nm">Aguinaldo</div><div class="bi-ds">Equivalente a 30 días. Entrega en diciembre.</div></div></div>
+        <div class="ben-c"><div class="bi-ic">🏖️</div><div><div class="bi-nm">Prima Vacacional</div><div class="bi-ds">75% sobre días de vacaciones según antigüedad.</div></div></div>
+        <div class="ben-c"><div class="bi-ic">🛒</div><div><div class="bi-nm">Vales de Despensa</div><div class="bi-ds">13% del salario, topado conforme a ley.</div></div></div>
+        <div class="ben-c"><div class="bi-ic">📈</div><div><div class="bi-nm">Comisiones por Ventas</div><div class="bi-ds">Esquema por resultados. Consulta con tu líder.</div></div></div>
+      </div>
+      <div class="ben-st">BENEFICIOS ADICIONALES</div>
+      <div class="gap9">
+        <div class="ben-c"><div class="bi-ic">🏦</div><div><div class="bi-nm">Caja de Ahorro</div><div class="bi-ds">Ahorro voluntario. Hasta 10 retiros por año.</div></div></div>
+        <div class="ben-c"><div class="bi-ic">💳</div><div><div class="bi-nm">Préstamos</div><div class="bi-ds">Disponible a partir de 6 meses de ahorro.</div></div></div>
+        <div class="ben-c"><div class="bi-ic">👔</div><div><div class="bi-nm">Uniformes</div><div class="bi-ds">Dotación 1–2 veces al año según puesto.</div></div></div>
+        <div class="ben-c"><div class="bi-ic">🏥</div><div><div class="bi-nm">Programa Orienta PAE</div><div class="bi-ds">Apoyo jurídico, nutricional y emocional.</div></div></div>
+        <div class="ben-c"><div class="bi-ic">🚗</div><div><div class="bi-nm">Seguro de Auto</div><div class="bi-ds">1–3 vehículos. Descuento directo en nómina.</div></div></div>
+        <div class="ben-c"><div class="bi-ic">🎯</div><div><div class="bi-nm">Plan de Pensión</div><div class="bi-ds">Tú aportas 4% mensual. La empresa suma 2% al jubilarte.</div></div></div>
+      </div>
+      <div class="h16"></div>
+    </div>
+  </div>
+
+  <!-- PAGE: EQUIPO -->
+  <div class="sb" id="pg-equipo" style="display:none">
+    <div class="sch">
+      <div class="sch-ey">TU RED DE APOYO</div>
+      <div class="sch-ti">Tu Equipo</div>
+      <div class="sch-su">No recorres este proceso solo. Tu líder y RH te acompañan en cada etapa.</div>
+      <div class="lider-c">
+        <div class="lc-in">
+          <div class="lc-av">👤</div>
+          <div class="lc-lb">TU LÍDER EN ESTA ETAPA</div>
+          <div class="lc-nm">Carlos Mendoza</div>
+          <div class="lc-rl">Gerente de Tienda · Santa Clara · Metales Díaz</div>
+          <div class="lc-bts">
+            <button class="btn btn-ghost btn-full btn-sm">📱 Enviar mensaje</button>
+            <button class="btn btn-dk btn-full btn-sm">📞 Llamar</button>
+          </div>
+        </div>
+      </div>
+      <div class="sch-ey mt20">ESTRUCTURA DE TIENDA</div>
+      <div class="org-c">
+        <div class="org-hd"><div class="org-ht">Roles en tu tienda</div></div>
+        <div class="org-it"><div class="org-dot" style="background:var(--amber)"></div><div><div class="org-rl">Gerente de Tienda</div><div class="org-ds">Metas · indicadores · inventarios · equipo</div></div></div>
+        <div class="org-it"><div class="org-dot" style="background:var(--p1)"></div><div><div class="org-rl">Administrativo</div><div class="org-ds">Cartera · caja · fondo fijo · auditorías</div></div></div>
+        <div class="org-it"><div class="org-dot" style="background:var(--p2)"></div><div><div class="org-rl">Jefe de Almacén</div><div class="org-ds">Recepción · acomodo · inventarios · seguridad</div></div></div>
+        <div class="org-it"><div class="org-dot" style="background:var(--p3)"></div><div><div class="org-rl">Ventas Calle</div><div class="org-ds">Prospección · ruta asignada · cobranza</div></div></div>
+        <div class="org-it" style="border-bottom:none"><div class="org-dot" style="background:var(--p4)"></div><div><div class="org-rl">Ventas Mostrador</div><div class="org-ds">Asesoría en piso · cotizaciones · entrega</div></div></div>
+      </div>
+      <div class="sch-ey mt20">RECURSOS HUMANOS</div>
+      <div class="rh-c"><div class="rh-av" style="background:var(--p1d)">👤</div><div><div class="rh-nm">Raúl Armenta</div><div class="rh-ph">📱 812 350 4607</div><div class="rh-em"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="92faf7f1e6fde0bcf3e0fff7fce6f3d2f1e7e2e0e7ffbcf1fdff">[email&#160;protected]</a></div></div></div>
+      <div class="rh-c"><div class="rh-av" style="background:var(--p3d)">👤</div><div><div class="rh-nm">Jorge Ayub</div><div class="rh-ph">📱 554 515 6461</div><div class="rh-em"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="42282d3025276c233b37200221373230372f6c212d2f">[email&#160;protected]</a></div></div></div>
+      <div class="cnt-box">
+        <div class="cnt-ti">¿CUÁNDO CONTACTAR A RH?</div>
+        <div class="cnt-row"><span class="cnt-ic">❓</span><span class="cnt-tx">Dudas sobre horarios, asistencia o tu rol</span></div>
+        <div class="cnt-row"><span class="cnt-ic">📋</span><span class="cnt-tx">Trámites: vacaciones, incapacidades o préstamos</span></div>
+        <div class="cnt-row"><span class="cnt-ic">💬</span><span class="cnt-tx">Comentarios, sugerencias o situaciones personales</span></div>
+      </div>
+      <div class="h16"></div>
+    </div>
+  </div>
+
+  <div class="bnav">
+    <button class="bn active" onclick="showPg('pasaporte',this)"><span class="bn-ic">🛂</span><span class="bn-lb">INICIO</span></button>
+    <button class="bn" onclick="showPg('viaje',this)"><span class="bn-ic">✈️</span><span class="bn-lb">ETAPAS</span></button>
+    <button class="bn" onclick="showPg('cuprum',this)"><span class="bn-ic">🌍</span><span class="bn-lb">CUPRUM</span></button>
+    <button class="bn" onclick="showPg('beneficios',this)"><span class="bn-ic">🎁</span><span class="bn-lb">BENEFICIOS</span></button>
+    <button class="bn" onclick="showPg('equipo',this)"><span class="bn-ic">👥</span><span class="bn-lb">MI EQUIPO</span></button>
+  </div>
+</div>
+
+<!-- SURVEY -->
+<div class="sv-ov" id="sv-ov" onclick="closeSvBg(event)">
+  <div class="sv-sh">
+    <div class="sv-hdl"></div>
+    <div class="sv-st"></div>
+    <div class="sv-dy" id="sv-dy">EVALUACIÓN · ETAPA 1</div>
+    <div class="sv-ti" id="sv-ti">Evalúa tu primera semana</div>
+    <div class="sv-de" id="sv-de">Tu opinión es confidencial. Nos ayuda a mejorar tu proceso y el de quienes llegan después.</div>
+    <div class="sv-hint">
+      <div class="sv-hint-ic" id="sv-ic">✈️</div>
+      <div><div class="sv-hint-lb">AL COMPLETAR OBTIENES</div><div class="sv-hint-nm" id="sv-nm">Sello: Primer Vuelo</div></div>
+    </div>
+    <div class="sv-acts">
+      <button class="btn btn-amber btn-full" onclick="completeSv()">COMPLETAR EVALUACIÓN →</button>
+      <button class="btn btn-outline btn-full" onclick="closeSv()">Completar después</button>
+    </div>
+  </div>
+</div>
+
+<!-- STAMP UNLOCK -->
+<div class="su-ov" id="su-ov">
+  <div class="su-rays"></div>
+  <div class="su-label">ETAPA COMPLETADA</div>
+  <div class="su-stamp" id="su-stamp"><div class="su-ic" id="su-ic">✈️</div><div class="su-nm" id="su-nm">PRIMER VUELO</div></div>
+  <div class="su-title" id="su-title">Has completado una etapa.<br>Estás listo para la siguiente.</div>
+  <button class="btn btn-amber" style="position:relative;z-index:1" onclick="closeUnlock()">CONTINUAR MI PROCESO</button>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">
+  <div class="toast-ic" id="toast-ic">✈️</div>
+  <div><div class="toast-ey">ETAPA COMPLETADA</div><div class="toast-nm" id="toast-nm">Primer Vuelo</div></div>
+</div>
+
+</div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+const COLLAB = {nombre:'Ana Martínez',puesto:'Ventas Mostrador',tienda:'Santa Clara',negocio:'Metales Díaz',dia:18};
+
+const SVS = {
+  d7: {day:'ETAPA 1', title:'Evalúa tu primera semana',           desc:'Comparte tu experiencia de llegada. Tu opinión mejora el proceso para todos.',     stamp:{id:'s1',icon:'✈️',name:'PRIMER VUELO',title:'Has completado\nla etapa de Llegada.'}},
+  d30:{day:'ETAPA 2', title:'Evalúa tu integración al equipo',    desc:'Tu opinión sobre este primer mes nos ayuda a acompañarte mejor.',                   stamp:{id:'s2',icon:'🗺️',name:'EXPLORADOR',  title:'Has completado\nla etapa de Inmersión.'}},
+  d60:{day:'ETAPA 3', title:'Evalúa tu autonomía actual',         desc:'Comparte cómo ha evolucionado tu integración. Tu avance fortalece tu impacto.',     stamp:{id:'s3',icon:'🌟',name:'LOCAL',       title:'Has completado\nla etapa de Autonomía.'}},
+  d90:{day:'ETAPA 4', title:'Evalúa tu proceso de integración',   desc:'Evalúa tu experiencia completa. Tu retroalimentación cierra el proceso formalmente.',stamp:{id:'s4',icon:'🏛️',name:'CIUDADANO',  title:'Tu proceso está\ncompleto.'}},
+};
+
+const STAMPS=[
+  {id:'s1',icon:'✈️',name:'PRIMER VUELO',bg:'rgba(59,130,246,.22)'},
+  {id:'s2',icon:'🗺️',name:'EXPLORADOR',  bg:'rgba(249,115,22,.22)'},
+  {id:'s3',icon:'🌟',name:'LOCAL',        bg:'rgba(16,185,129,.22)'},
+  {id:'s4',icon:'🏛️',name:'CIUDADANO',   bg:'rgba(168,85,247,.22)'},
+];
+
+const PHS=[
+  {icon:'✈️',color:'#3B82F6',dim:'rgba(59,130,246,.14)',days:'DÍAS 1–7',  name:'Llegada',                        slogan:'Conozco la tienda y al equipo',                  sub:'Inicio del proceso',          quote:'Tu primer punto de partida. La primera semana define las bases de tu integración.',    sv:'d7', stamp:'✈️ Sello Llegada',   done:true, active:false},
+  {icon:'🗺️',color:'#F97316',dim:'rgba(249,115,22,.14)', days:'DÍAS 8–30', name:'Dominando el mapa',              slogan:'Entiendo qué tengo que hacer',                   sub:'Integración al equipo',       quote:'Conoces el entorno y tu rol. Es el momento de conectar con tu equipo y tus clientes.', sv:'d30',stamp:'🗺️ Sello Inmersión', done:false,active:true},
+  {icon:'🌟',color:'#10B981',dim:'rgba(16,185,129,.14)', days:'DÍAS 31–60',name:'En ruta',                         slogan:'Realizo mi trabajo con apoyo de mi líder',       sub:'Consolidación del rol',       quote:'Tu desempeño toma forma. Tomas decisiones con mayor claridad y confianza.',            sv:'d60',stamp:'🌟 Sello Autonomía',  done:false,active:false},
+  {icon:'🏛️',color:'#A855F7',dim:'rgba(168,85,247,.14)', days:'DÍAS 61–90',name:'Destino: integrado al equipo',   slogan:'Trabajo con seguridad y autonomía',              sub:'Cierre del proceso',          quote:'Completas tu integración formal. La evaluación final activa tu Pasaporte Cuprum.',      sv:'d90',stamp:'🏛️ Sello Pertenencia',done:false,active:false},
+];
+
+let obSlide=0, activeSv=null, earned=new Set(['s1']);
+const pct=()=>Math.round((earned.size/STAMPS.length)*100);
+
+window.addEventListener('load',()=>setTimeout(()=>activate('scr-ob'),2600));
+
+function activate(id){document.querySelectorAll('.scr').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');}
+
+// ONBOARDING
+document.getElementById('ob-btn').addEventListener('click',()=>{
+  if(obSlide<2){
+    obSlide++;
+    document.querySelectorAll('.ob-slide').forEach((s,i)=>s.classList.toggle('active',i===obSlide));
+    document.querySelectorAll('.ob-dot').forEach((d,i)=>d.classList.toggle('active',i===obSlide));
+    if(obSlide===2)document.getElementById('ob-btn').textContent='INICIAR MI PROCESO ✈️';
+  }else goMain();
+});
+function goMain(){activate('scr-main');setTimeout(init,120);}
+
+// INIT
+function init(){
+  document.getElementById('tnav-dy').textContent=`Día ${COLLAB.dia}`;
+  document.getElementById('h-nm').textContent=COLLAB.nombre;
+  document.getElementById('h-rl').textContent=`${COLLAB.puesto} · ${COLLAB.tienda} · ${COLLAB.negocio}`;
+  const ph=PHS.find(p=>p.active)||PHS[0];
+  document.getElementById('h-dest-ic').textContent=ph.icon;
+  document.getElementById('h-dest-nm').textContent=`${ph.name} — ${ph.sub}`;
+  document.getElementById('h-dest-sl').textContent=ph.slogan;
+  document.getElementById('h-dest-dy').textContent=`Etapa activa · Día ${COLLAB.dia} de 90`;
+  updateUI(); renderStamps(); renderTL();
+}
+
+function updateUI(){
+  const p=pct();
+  document.getElementById('tnav-pct').textContent=p+'%';
+  document.getElementById('h-pct').textContent=p+'%';
+  setTimeout(()=>{document.getElementById('tnav-fill').style.width=p+'%';document.getElementById('h-prog').style.width=p+'%';},300);
+  document.getElementById('st-ct').textContent=`${earned.size} de ${STAMPS.length} etapas completadas`;
+}
+
+function renderStamps(){
+  const r=document.getElementById('st-row');r.innerHTML='';
+  STAMPS.forEach(s=>{
+    const e=earned.has(s.id),d=document.createElement('div');
+    d.className=`stm${e?'':' locked'}`;d.style.background=s.bg;
+    d.innerHTML=`${e?'<div class="stm-ck">✓</div>':''}<span class="stm-ic">${s.icon}</span><div class="stm-nm">${s.name}</div>`;
+    r.appendChild(d);
+  });
+}
+
+function renderTL(){
+  const c=document.getElementById('tl');c.innerHTML='';
+  PHS.forEach(ph=>{
+    const sv=SVS[ph.sv],isE=earned.has(sv.stamp.id);
+    const cls=ph.done?'ph-done':ph.active?'ph-act open':'ph-lock';
+    const d=document.createElement('div');d.className=`ph ${cls}`;
+    d.innerHTML=`
+      <div class="ph-stripe" style="background:${ph.done?'#16A34A':ph.active?'var(--amber)':ph.color}33"></div>
+      <div class="ph-hd" onclick="togPh(this)">
+        <div class="ph-dot" style="background:${ph.dim}">${ph.icon}</div>
+        <div class="ph-inf"><div class="ph-days">${ph.days}</div><div class="ph-name">${ph.name}</div></div>
+        <span class="pill ${ph.done?'p-ok':ph.active?'p-amber':'p-muted'}" style="margin-right:8px">${ph.done?'✓ COMPLETA':ph.active?'EN CURSO':'PENDIENTE'}</span>
+        <div class="ph-ch">›</div>
+      </div>
+      <div class="ph-body">
+        <div class="ph-quote">${ph.quote}</div>
+        <div class="ph-sv">
+          <div><div class="psv-ey">📋 EVALUACIÓN ${sv.day}</div><div class="psv-ti">${sv.title}</div><div class="psv-hi">Completa la etapa y obtén: ${ph.stamp}</div></div>
+          ${isE?`<span class="pill p-ok" style="flex-shrink:0">✓ COMPLETADA</span>`
+            :(ph.done||ph.active)?`<button class="btn btn-ghost btn-sm" style="flex-shrink:0" onclick="openSurvey('${ph.sv}')">EVALUAR →</button>`
+            :`<span class="pill p-muted" style="flex-shrink:0">PRÓXIMA ETAPA</span>`}
+        </div>
+      </div>`;
+    c.appendChild(d);
+  });
+}
+
+function togPh(el){const b=el.parentElement;if(b.classList.contains('ph-lock'))return;b.classList.toggle('open');}
+
+function showPg(pg,btn){
+  ['pasaporte','viaje','cuprum','beneficios','equipo'].forEach(p=>{
+    document.getElementById('pg-'+p).style.display=p===pg?'block':'none';
+  });
+  document.querySelectorAll('.bn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('pg-'+pg).scrollTop=0;
+}
+
+function openSurvey(id){
+  activeSv=id;const s=SVS[id];
+  document.getElementById('sv-dy').textContent=`EVALUACIÓN · ${s.day}`;
+  document.getElementById('sv-ti').textContent=s.title;
+  document.getElementById('sv-de').textContent=s.desc;
+  document.getElementById('sv-ic').textContent=s.stamp.icon;
+  document.getElementById('sv-nm').textContent=`${s.stamp.icon} ${s.stamp.name}`;
+  document.getElementById('sv-ov').classList.add('open');
+}
+function closeSv(){document.getElementById('sv-ov').classList.remove('open');}
+function closeSvBg(e){if(e.target===document.getElementById('sv-ov'))closeSv();}
+
+function completeSv(){
+  if(!activeSv)return;
+  const s=SVS[activeSv];closeSv();
+  earned.add(s.stamp.id);
+  const ph=PHS.find(p=>p.sv===activeSv);if(ph){ph.done=true;ph.active=false;}
+  const st=STAMPS.find(x=>x.id===s.stamp.id);
+  document.getElementById('su-ic').textContent=s.stamp.icon;
+  document.getElementById('su-nm').textContent=s.stamp.name;
+  document.getElementById('su-title').textContent=s.stamp.title;
+  if(st)document.getElementById('su-stamp').style.background=st.bg;
+  document.getElementById('su-ov').classList.add('show');
+}
+
+function closeUnlock(){
+  document.getElementById('su-ov').classList.remove('show');
+  updateUI();renderStamps();renderTL();
+  if(activeSv){
+    const s=SVS[activeSv];
+    document.getElementById('toast-ic').textContent=s.stamp.icon;
+    document.getElementById('toast-nm').textContent=s.stamp.name;
+    const t=document.getElementById('toast');
+    t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3500);
+  }
+  activeSv=null;
+}
+</script>
+</body>
+</html>
